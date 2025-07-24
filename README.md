@@ -43,12 +43,46 @@ If you use our method or code in your research, please consider citing the paper
 
 ## Instructions
 
+Install mujoco210 (old version):
+    * Download the Mujoco library from this [link](https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz).
+    * Create a hidden folder :
+    ```
+    mkdir /home/username/.mujoco
+    ```
+    * Extract the library to the .mujoco folder.
+    ```
+    tar -xvf mujoco210-linux-x86_64.tar.gz -C ~/.mujoco/
+    ```
+    * Include these lines in .bashrc file.
+    ```
+    # Replace user-name with your username
+    echo -e 'export LD_LIBRARY_PATH=/home/user-name/.mujoco/mujoco210/bin 
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia 
+    export PATH="$LD_LIBRARY_PATH:$PATH" 
+    export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so' >> ~/.bashrc
+    ```
+    * Source bashrc.
+    ```
+    source ~/.bashrc
+    ```
+    * Test that the library is installed.
+    ```
+    cd ~/.mujoco/mujoco210/bin
+    ./simulate ../model/humanoid.xml
+    ```
+
 Assuming that you already have [MuJoCo](http://www.mujoco.org) installed, install dependencies using `conda`:
 
 ```
 conda env create -f environment.yaml
 conda activate tdmpc
 ```
+
+If you're having trouble installing gym when making the conda environment, try:
+```
+pip install setuptools==65.5.0 pip==23.3.2 gym==0.22.0
+```
+You might also need to downgrade numpy to `numpy==1.21.6`
 
 After installing dependencies, you can train an agent by calling
 
